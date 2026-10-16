@@ -1,0 +1,50 @@
+<div  class="d-flex justify-content-center flex-nowrap gap-2 overflow-auto py-2 mt-5">
+    @for (category of categories; track category.id) {
+        <button
+            type="button"
+            class="btn rounded-pill text-nowrap px-3"
+            [class.btn-primary]="selectedCategory === category.id"
+            [class.active]="selectedCategory === category.id"
+            [class.btn-outline-primary]="selectedCategory !== category.id"
+            (click)="selectCategory(category.id)"
+        >
+        {{ category.label }}
+        </button>
+    }
+</div>
+<div class="container" style="margin-top:50px;">
+    <div class="row d-flex align-items-stretch">
+        @if(products.length==0 && isLoading){
+            <div style="margin: 100px auto;"  class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        }@else if (products.length==0 &&!isLoading) {
+            <div style="margin: 80px auto;text-align: center;">
+            <span style="color: blue;font-size: 50px;font-weight: 700;">No Product Found...!</span>
+            </div>
+        }
+        @for (prd of products; track prd.id) {
+        <div class="col-md-3 my-3 d-flex">
+            <div class="card-sl">
+                <div class="card-image">
+                    <img width="200" height="150" [src]="prd.image" />
+                </div>
+                <a class="card-action"><i class="fa fa-heart"></i></a>
+        
+                <div class="card-heading">
+                    {{prd.title}}
+                </div>
+        
+                <div class="card-text description">
+                    {{prd.description}}
+                </div>
+        
+                <div class="card-text price">
+                    {{prd.price | currency}}
+                </div>
+                <a (click)="showDetaile(prd.id)" class="card-button">read more</a>
+            </div>
+        </div>
+        }
+    </div>
+</div>

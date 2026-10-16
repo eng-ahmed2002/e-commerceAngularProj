@@ -1,0 +1,105 @@
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <!-- <h1>{{ formLog.value| json }}</h1> -->
+            <form [formGroup]="formReg">
+                <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                    <p class="lead fw-normal mb-0 me-3">Sign Up with</p>
+                    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="icons btn btn-primary btn-floating mx-1">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+                    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="icons btn btn-primary btn-floating mx-1">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+                    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="icons btn btn-primary btn-floating mx-1">
+                        <i class="fab fa-linkedin-in"></i>
+                    </button>
+                    </div>
+                    <div class="divider d-flex align-items-center my-4">
+                        <p class="text-center fw-bold mx-3 mb-0">Or</p>
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <label class="form-label" for="form3Example3">UserName</label>
+                        <input name="userName" formControlName="userName" type="text" id="form3Example3" class="form-control form-control-lg"
+                        placeholder="Enter a valid UserName" />
+                        <!-- <p>{{Name?.errors|json}}</p> -->
+                        @if (Name?.touched && Name?.invalid) {
+                            <div class="text-danger">
+                                @if(Name?.errors?.['required']){
+                                <p>name is required </p>
+                                }@if(Name?.errors?.['pattern']){
+                                <p>name must be at leat 3 charcter </p>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <label class="form-label" for="form3Example33">Email</label>
+                        <input name="email" formControlName="email" type="email" id="form3Example33" class="form-control form-control-lg"
+                        placeholder="Enter a valid email address" />
+                        <!-- <p>{{Name?.errors|json}}</p> -->
+                        @if (email?.touched && email?.invalid) {
+                            <div class="text-danger">
+                                @if(email?.errors?.['required']){
+                                <p>email is required </p>
+                                }@if(email?.errors?.['email']){
+                                <p>enter valid format </p>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-3">
+                        <label class="form-label" for="form3Example4">Password</label>
+                        <input name="passWord" formControlName="passWord" type="password" id="form3Example4" class="form-control form-control-lg"
+                        placeholder="Enter password" />
+                        @if(formReg.get("passWord")?.touched){
+                            <div class="text-danger">
+                                @if(formReg.get("passWord")?.errors?.['required']){
+                                    <p>password is required </p>
+                                    }
+                                @if (formReg.get("passWord")?.errors?.['pattern']) {
+                                    <p>Min 8 chars: at least 1 uppercase, 1 lowercase, 1 number</p>
+                                }
+                            </div>                   
+                        }   
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-3">
+                        <label class="form-label" for="form3Example4">Re Password</label>
+                        <input (change)="compare()" name="repass" formControlName="repass" type="password" id="form3Example4" class="form-control form-control-lg"
+                        placeholder="reEnter password" />
+                        <div class="text-danger">
+                            @if(formReg.get("repass")?.touched && formReg.get("repass")?.errors?.['required']){
+                                <p >password is required </p>
+                                } 
+                            @if(formReg.get("repass")?.touched && !isMatch){
+                                <p >MisMatch passwords </p>
+                            }
+                        </div>    
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="form-check mb-0">
+                            <input formControlName="rememberMe" class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                            <label  class="form-check-label" for="form2Example3">Remember me</label>
+                        </div>
+                        <a  class="text-body">Forgot password?</a>
+                    </div>
+                    <!-- <p>{{this.formLog.get("userName")?.value}}</p> -->
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button [disabled]="formReg.invalid"  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;" 
+                        (click)="register()"
+                        >register</button>
+                        <p class="small fw-bold mt-2 pt-1 mb-0 link">I have an account? <a 
+                            (click)="navToLog()"
+                        class="link-danger">Login?</a></p>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                class="img-fluid" alt="Sample image">
+            </div>
+        </div>
+    </div>
+</section>

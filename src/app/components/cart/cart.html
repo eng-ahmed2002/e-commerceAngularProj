@@ -1,0 +1,75 @@
+<div class="container py-5">
+  <!-- Title Header -->
+  <div class="text-center mb-5">
+    <h1 class="fw-bold" style="color: blue;">🛒 Shopping Cart</h1>
+    <p class="text-muted">Review your items before checkout</p>
+  </div>
+
+  <div class="row g-4 align-items-start">
+    <div class="col-lg-8">
+      @for (prd of Carts; track $index) {
+      <div class="card border-0 shadow-sm p-4">
+        <div class="card-body  p-0">
+          
+          <div class="row align-items-center py-3 border-bottom mx-0">
+            <div class="col-md-2 col-3 text-center">
+              <div class="bg-light rounded-3 p-3 d-flex align-items-center justify-content-center" style="height: 80px;">
+                <img width="80px" [src]="prd.prd.image" alt="">
+              </div>
+            </div>
+
+            <div class="col-md-5 col-9">
+              <h6 class="fw-bold mb-1">{{prd.prd.title}}</h6>
+              <p class="text-muted mb-2">{{prd.prd.price|currency}}</p>
+              
+              <!-- Quantity Increment / Decrement Buttons -->
+              <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-sm btn-outline-primary px-2 py-0" (click)="min(prd)">−</button>
+                <span #count class="fw-semibold px-2">{{prd.additinal.count}}</span>
+                <button class="btn btn-sm btn-outline-primary px-2 py-0" (click)="plus(prd)">+</button>
+              </div>
+            </div>
+
+            <!-- Total Price & Remove Button -->
+            <div class="col-md-5 col-12 text-md-end mt-3 mt-md-0 d-flex flex-md-column justify-content-between align-items-md-end">
+              <span class="fw-bold fs-5 mb-md-2">{{prd.additinal.count*prd.prd.price |currency}}</span>
+              <button class="btn btn-sm btn-outline-danger px-3" (click)="removeItem(prd.prd.id)">Remove</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    }
+    </div>
+  @if(products.length==0){
+    <div style="text-align: center;margin: 50px auto;color: blue;" class="col-lg-8">
+      <h3> No Product Found..!</h3>
+    </div>
+  }
+    <!-- Right Column: Order Summary -->
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm p-4">
+        <h5 class="fw-bold mb-4">Order Summary</h5>
+
+        <div class="d-flex justify-content-between mb-2 text-muted">
+          <span>Subtotal</span>
+          <span>{{totalPrice |currency}}</span>
+        </div>
+
+        <div class="d-flex justify-content-between mb-3 text-muted">
+          <span>Tax (8%)</span>
+          <span>{{totalPrice*0.08 |currency}}</span>
+        </div>
+
+        <hr />
+
+        <div class="d-flex justify-content-between mb-4 fs-5 fw-bold">
+          <span>Total</span>
+          <span>{{totalPrice*0.08 +totalPrice |currency}}</span>
+        </div>
+
+        <button class="btn btn-primary w-100 py-2 fw-semibold" (click)="checkout()">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>

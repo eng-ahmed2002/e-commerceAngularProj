@@ -1,0 +1,32 @@
+<div class="container py-3">
+  <!-- Card Start -->
+  <div class="card">
+    <div class="row ">
+
+      <div class="col-md-7 px-3 d-flex textBody">
+        <div class="card-block px-6">
+          <h4 class="card-title">{{product.title}} </h4>
+          <p class="card-text">
+            {{product.description}}
+        </p>
+          <p class="card-text">{{product.price | currency}}</p>
+
+          <div class="d-flex align-items-center my-2">
+            @for (star of getStars(product.rating.rate); track $index) {
+                <i [class]="star" class="text-warning me-1"></i>
+            }
+
+            <!-- Numeric Rating & Count -->
+            <span class="fw-bold ms-2">{{ product.rating.rate }}</span>
+            <span class="text-muted ms-1">({{ product.rating.count }} reviews)</span>
+            </div>
+          <br>
+          <a   class="mt-auto mb-5 btn btn-primary" (click)="addPrd()">Add to cart</a>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <img style="min-height: 500px; max-width: 400px;" [src]="product.image" alt="">
+      </div>
+    </div>
+  </div>
+</div>
